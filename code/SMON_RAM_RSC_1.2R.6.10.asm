@@ -85,7 +85,7 @@ CHKOUT          = $FFC9                         ; Set Output
 CLRCHN          = $FFCC                         ; Restore I/O Vector
 CHRIN           = $FFCF                         ; Input Vector
 CHROUT          = $FFD2                         ; Output Vector
-STOPT           = $FFE1                         ; Test STOP Vector
+STOP            = $FFE1                         ; Test STOP Vector
 GETIN           = $FFE4                         ; Vector: Kernal GETIN Routine
 
 ; addresses used from disk monitor:
@@ -660,10 +660,10 @@ SCANKEY:
                 jsr     R_GETIN
                 pha
                 jsr     R_STOPT              
-                beq     STOP
+                beq     STOP_
                 pla
 SCANRTS:        rts
-STOP:           jmp     EXECUTE                         ; go back, wait for next input
+STOP_:          jmp     EXECUTE                         ; go back, wait for next input
 ;
 PRINTER1:       ldy     #$28
 PRINTER:        bit     COMMAND
@@ -1696,7 +1696,7 @@ RCDA7:          jsr     IECIN
                 jsr     INTOUT
                 lda     #$20
                 jsr     CHROUT
-RCDB6:          jsr     STOPT
+RCDB6:          jsr     STOP 
                 beq     RCDD4
                 jsr     IECIN
                 beq     RCDC5
@@ -1746,7 +1746,7 @@ R_GETIN:        jsr     SWROM:
                 jsr     GETIN
                 jmp     SHRAM:
 R_STOPT:        jsr     SWROM:
-                jsr     STOPT
+                jsr     STOP 
                 jmp     SHRAM:
 R_CLOSE:        jsr     SWROM:
                 jmp     CLOSE
