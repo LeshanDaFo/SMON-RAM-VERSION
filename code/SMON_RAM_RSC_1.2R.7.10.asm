@@ -1,7 +1,7 @@
 ; ###############################################################
 ; #                                                             #
 ; #  SMON-RAM RELOCATABLE SOURCE CODE                           #       
-; #  Version 1.2R.7.10 (2023.10.10)                             #
+; #  Version 1.2R.8.10 (2023.10.10)                             #
 ; #  Copyright (c) 2022, 2023 Claus Schlereth                   #
 ; #                                                             #  
 ; #  Based on the source code from: cbmuser                     #
@@ -35,6 +35,7 @@
                   ; with this version it is possible to build all versions of the SMON
 ; V1.2R.7.10    =   correct an reported error.
                   ; there was an error in the comma-command (disassemble change), a change by overwriting an value was not accepted.
+; V1.2R.8.10    =   the last error was not corrected successful, it should work now
 
 TASTBUF         = $0277
 COLOR           = $0286                         ; charcolor
@@ -807,10 +808,10 @@ LC58C:          ldx     #$2C
                 jsr     SPACE                           ; output space
 LC597:          jsr     LC675
                 jsr     LC4CB                       
-                jmp     SPCOC                           ; output space
+                jsr     SPACE                           ; output space
 LC5A0:          lda     (PCL),y
                 jsr     HEXOUT1                         ; output 2 digit hex address                         
-                jmp     SPCOC                           ; output space
+                jsr     SPACE                           ; output space
                 iny
                 cpy     BEFLEN
                 bne     LC5A0
@@ -997,7 +998,7 @@ LC701:          stx     FLAG
                 bpl     LC717
                 ldx     #$0A
 LC711:
-                jmp     LC717
+                jsr     R_CHRIN
                 dex
                 bne     LC711
 LC717:          lda     #$00
