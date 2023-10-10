@@ -1,7 +1,7 @@
 ; ###############################################################
 ; #                                                             #
 ; #  SMON-RAM RELOCATABLE SOURCE CODE                           #       
-; #  Version 1.2R.6.10 (2023.02.24)                             #
+; #  Version 1.2R.7.10 (2023.10.10)                             #
 ; #  Copyright (c) 2022, 2023 Claus Schlereth                   #
 ; #                                                             #  
 ; #  Based on the source code from: cbmuser                     #
@@ -33,6 +33,8 @@
 ; V1.2R.6.10    =   this is the branch from the SMON RSC-Version, which can be found at https://github.com/LeshanDaFo/SMON-RelocatableSourceCode
                   ; for the comatibility, first i will not remove the other normal parts. 
                   ; with this version it is possible to build all versions of the SMON
+; V1.2R.7.10    =   correct an reported error.
+                  ; there was an error in the comma-command (disassemble change), a change by overwriting an value was not accepted.
 
 TASTBUF         = $0277
 COLOR           = $0286                         ; charcolor
@@ -804,11 +806,11 @@ LC58C:          ldx     #$2C
                 jsr     HEXOUT                          ; output as 4 digit hex
                 jsr     SPACE                           ; output space
 LC597:          jsr     LC675
-                jsr     LC4CB
-                jsr     SPACE                           ; output space
+                jsr     LC4CB                       
+                jmp     SPCOC                           ; output space
 LC5A0:          lda     (PCL),y
-                jsr     HEXOUT1                         ; output 2 digit hex address
-                jsr     SPACE                           ; output space
+                jsr     HEXOUT1                         ; output 2 digit hex address                         
+                jmp     SPCOC                           ; output space
                 iny
                 cpy     BEFLEN
                 bne     LC5A0

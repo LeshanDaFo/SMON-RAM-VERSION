@@ -1,0 +1,6 @@
+; History:
+; V1.2R.6.10    =   this is the branch from the SMON RSC-Version, which can be found at https://github.com/LeshanDaFo/SMON-RelocatableSourceCode
+                  ; for the comatibility, first i will not remove the other normal parts. 
+                  ; with this version it is possible to build all versions of the SMON
+; V1.2R.7.10    =   correct an reported error.
+                  ; there was an error in the comma-command (disassemble change), a change by overwriting an value was not accepted.
